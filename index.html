@@ -1,0 +1,599 @@
+﻿<html>
+<head>
+<h2 id="textMessage"></h2>
+<h2 id="textMessage2"></h2>
+<div class="button">
+<button type="button onclick="movingNorth();placeFinder();"><p id="option1"></p></button>
+<br>
+<button type="button onclick="movingEast();placeFinder();"><p id="option2"></p></button>
+<br>
+<button type="button onclick="movingSouth();placeFinder()"><p id="option3"></p></button>
+<br>
+<button type="button onclick="movingWest();placeFinder();"><p id="option4"></p></button>
+</div>
+<p id="text"></p>
+<p id="text2"></p>
+<p id="text3"></p>
+<p id="text4"></p>
+<p id="text5"></p>
+<p id="text6"></p>
+
+<br>
+<br>
+<div class="battleButtons">
+<!-- Battle UI -->
+<div id="battleUI">
+<button type="button onclick="meleeAttack();"><p id="meleeAttack"></p></button>
+<br>
+<button type="button onclick="meleeAttack2;()"><p id="meleeAttack2"></p></button>
+<br>
+<button type="button onclick="rangedAttack();"><p id="rangedAttackButton"></p></button>
+<br>
+<button type="button onclick="RangedAttack2();"><p id="rangedAttack2Button"></p></button>
+<br>
+<button type="button onclick="magicAttack();"><p id="magicAttackButton"></p></button>
+<br>
+<!-- <button type="button onclick="runaway();"><p id ="fleeButton"></p></div></button> -->
+</div>
+<br>
+<br>
+<br>
+<!-- Stats-->
+<button onclick="statFinder()">Stats</button>
+<div class="stats">
+<p id="playerHealthDisplay"></p>
+<p id="playerMaxHealthDisplay"></p>
+<p id="playerDamageDisplay"></p>
+<p id="playerCritChanceDisplay"></p>
+<p id="playerCritDamageDisplay"></p>
+<p id="playerSpeedDisplay"></p>
+<p id="playerPositionX"></p>
+<p id="playerPositionY"></p>
+</div>
+
+<br>
+<br>
+<div class="button">
+<button type="button" onclick="restart();">restart</button>
+</div>	
+<script>
+
+var playerX = 0;
+var playerY = 0;
+var playerSpeed = 100;
+var equipmentBonusSpeed = 0;
+var playerTotalSpeed = playerSpeed + equipmentBonusSpeed;
+var playerDamage = 25;
+var playerAccuracy = 95;
+var playerDodgeChance = 25;
+var playerCritChance = 25;
+var playerCritDamage = 300;
+var combatPower = playerDamage + equipmentBonusDamage;
+var baseStamina = 100;
+var equipment;
+var equipmentBonusDamage = 0;
+var equipmentBonusStamina = 0;
+var staminaRemaining = 	100;
+var dragonPower;
+var dragonStamina;
+var monsterSpeed;
+var monster2Speed;
+var monsterPower;
+var monsterStamina;
+var monster2Power;
+var monster2Stamina;
+var message;
+var enemies;
+var enemyName;
+var enemy2Name;
+var potion = 0;
+var coordinates = playerX +"," + playerY;
+/*
+var northMessage;
+var eastMessage;
+var southMessage;
+var westMessage;
+*/
+
+
+function meleeAttack(){
+if (playerTotalSpeed > monsterSpeed){playerAttackMelee;}
+if (monsterStamina > 0){monsterAttack();}
+else{monsterAttack();playerAttack();}
+}
+
+function meleeAttack2(){
+if (playerTotalSpeed > monster2Speed){playerAttackMelee2;}
+  
+if(monsterStamina > 0){monster2Attack();}
+else{monster2Attack(); playerAttack();}
+}
+
+function rangedAttack(){
+playerAttack();
+}
+
+function rangedAttack2(){
+playerAttack2();
+}
+
+function magicAttack(){
+playerAttack();
+if(enemies == 2){playerAttack2();}
+
+}
+
+function playerAttack() {
+if (Math.floor(Math.random() * 100) + 1 < playerAccuracy){}
+else if (Math.floor(Math.random() * 100) + 1 < playerCritChance){monsterStamina - (combatPower * playerCritDamage/100);}
+else{monsterStamina - combatPower;}
+}
+
+function playerAttack2() {
+if (Math.floor(Math.random() * 100) + 1 < playerAccuracy){}
+else if (Math.floor(Math.random() * 100) + 1 < playerCritChance){monster2Stamina - (combatPower * playerCritDamage/100);}
+else{monster2Stamina - combatPower;}
+
+}
+
+function playerAttackMelee() {
+if (Math.floor(Math.random() * 100) + 1 < playerAccuracy){}
+else if (Math.floor(Math.random() * 100) + 1 < playerCritChance){monsterStamina - (combatPower * playerCritDamage/100);}
+else{monsterStamina - combatPower;}
+}
+
+function playerAttackMelee2() {
+if (Math.floor(Math.random() * 100) + 1 < playerAccuracy){}
+else if (Math.floor(Math.random() * 100) + 1 < playerCritChance){monster2Stamina - (combatPower * playerCritDamage/100 * 1.5);}
+else{monster2Stamina - combatPower * 1.5;}
+}
+
+function monsterAttack(){
+
+}
+
+function winner(){
+playerX = 0;
+playerY = 0;
+playerSpeed = 100;
+baseStamina = 100;
+staminaRemaining = 100;
+playerAccuracy = 95;
+playerDodgeChance = 25;
+playerCritChance = 25;
+playerCritDamage = 300;
+equipmentBonusDamage = 0;
+equipmentBonusStamina = 0;
+}
+
+function monsterHealthCheck(){
+
+if(monsterStamina < 0){playerDamage + 1; baseStamina + 2;}
+
+
+}
+function monsterHealthCheck(){
+
+if(monster2Stamina < 0){playerDamage ++ 5;baseStamina ++ 2;}
+
+}
+
+function restart(){
+playerX = 0;
+playerY = 0;
+playerSpeed = 100;
+baseStamina = 100;
+staminaRemaining = 100;
+playerAccuracy = 95;
+playerDodgeChance = 25;
+playerCritChance = 25;
+playerCritDamage = 300;
+equipmentBonusDamage = 0;
+equipmentBonusStamina = 0;
+
+}
+
+function movingNorth(){
+playerX ++ 1;
+placeFinder();
+
+}
+function movingEast(){
+playerY ++ 1;
+placeFinder();
+
+}
+function movingSouth(){
+playerX -- 1;
+placeFinder();
+
+}
+function movingWest(){
+playerY -- 1;
+placeFinder();
+}
+
+function statFinder(){
+document.getElementById("playerHealthDisplay").innerHTML = "    ";
+document.getElementById("playerMaxHealthDisplay").innerHTML = "    ";
+document.getElementById("playerDamageDisplay").innerHTML = "    ";
+document.getElementById("playerCritChanceDisplay").innerHTML = "    ";
+document.getElementById("playerSpeedDisplay").innerHTML = "    ";
+document.getElementById("playerPotionsRemaining").innerHTML = "    ";
+document.getElementById("playerPositionX").innerHTML = "    ";
+document.getElementById("playerPositionY").innerHTML = "    ";
+}
+
+function placeFinder()
+	{
+if(playerX === 0 && playerY === 0)
+{
+document.getElementById("textMessage").innerHTML = "You are standing in a room with four exits";
+document.getElementById("textMessage2").innerHTML = "The east exit has a sign with a skull on it.";
+document.getElementById("option1").innerHTML = "Head north?";
+document.getElementById("option2").innerHTML = "Head east and go in the direction that has the sign with the skull on it?";
+document.getElementById("option3").innerHTML = "Head south?";
+document.getElementById("option4").innerHTML = "Head west?";
+document.getElementById("text").innerHTML = "You found a silver sword!";
+document.getElementById("text2").innerHTML = "You found a bow!";
+document.getElementById("text3").innerHTML = "You found a magic wand!";
+document.getElementById(text4).innerhtml = "You found a health potion!";
+}
+else if(playerX === 0 && playerY == 1)
+{
+monsterSpeed = 90;
+monsterStamina = 125;
+monsterPower =	10;
+document.getElementById("textMessage").innerHTML = "You have encountered an orc warrior!";
+document.getElementById("textMessage2").innerHTML = "Select a option in the battle interface!";
+document.getElementById("option1").innerHTML = "Head north?";
+document.getElementById("option2").innerHTML = "Head east and go in the direction that has the sign with the skull on it?";
+document.getElementById("option3").innerHTML = "Head south?";
+document.getElementById("option4").innerHTML = "Head west?";
+}
+else if(playerX === 0 && playerY == 2)
+{}
+else if(playerX === 0 && playerY == -2){}
+//instakill pits
+else if(playerX === 0 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "You fell into a pool of acid lava and died.";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+
+else if(playerX === 0 && playerY == -3){
+document.getElementById("textMessage").innerHTML = "You fell into a pool of acid and died.";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+
+else if(playerX === 0 && playerY == 3){
+document.getElementById("textMessage").innerHTML = "You fell into a pool of lava and died.";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+//
+else if(playerX == 1 && playerY === 0){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 1 && playerY == 1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 1 && playerY == 2){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 1 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 1 && playerY == -2){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+//instakillpits
+else if(playerX == 1 && playerY == 3){
+document.getElementById("textMessage").innerHTML = "You fell into a pool of bloodthirsty piranhas and died.";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 1 && playerY == -3){
+document.getElementById("textMessage").innerHTML = "You died.";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+//
+else if(playerX == 2 && playerY === 0){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 2 && playerY == 1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 2 && playerY == 2){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 2 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 2 && playerY == -2){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+//Instakill stuff
+else if(playerX == 2 && playerY == 3){
+document.getElementById("textMessage").innerHTML = "You have been pwned by a grue";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 2 && playerY == -3){
+document.getElementById("textMessage").innerHTML = "You fell out of the world. Turns out the Earth is flat.";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY === 0){
+document.getElementById("textMessage").innerHTML = "You got stuck by lightning";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY == 1){
+document.getElementById("textMessage").innerHTML = "Suddenly, you have a heart attack and die.";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY == 2){
+document.getElementById("textMessage").innerHTML = "You fell into a bottomless pit";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY == -2){
+document.getElementById("textMessage").innerHTML = "You tripped on a rock and broke your neck";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY == 3){
+document.getElementById("textMessage").innerHTML = "You fell into a pool of acid lava and died.";
+document.getElementById("textMessage2").innerHTML = "Should have paid attention to the signs!";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+//
+else if(playerX == -1 && playerY === 0){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == -1 && playerY == 1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == -1 && playerY == 2){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == -1 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == -1 && playerY == -2){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+//Special
+else if(playerX == 3 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == -1 && playerY == -3){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == -1 && playerY == -4){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == -2 && playerY == 1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == -2 && playerY == 1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";
+}
+else if(playerX == 3 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";	
+}
+//Exits
+else if(playerX == -3 && playerY == -1){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";}
+else if(playerX === 0 && playerY == 4){
+document.getElementById("textMessage").innerHTML = "";
+document.getElementById("textMessage2").innerHTML = "";
+document.getElementById("option1").innerHTML = "    ";
+document.getElementById("option2").innerHTML = "    ";
+document.getElementById("option3").innerHTML = "    ";
+document.getElementById("option4").innerHTML = "    ";}
+}
+//
+
+
+}
+
+</script>
+<style>
+button{
+ display:inline-block;
+ padding:0.3em 1.2em;
+ margin:0 0.3em 0.3em 0;
+ border-radius:2em;
+ box-sizing: border-box;
+ text-decoration:none;
+ font-family:'Roboto',sans-serif;
+ font-weight:300;
+ color:#FFFFFF;
+ background-color:#4eb5f1;
+ text-align:center;
+ transition: all 0.2s;
+}
+button:hover{
+ background-color:#4095c6;
+}
+
+</style>
+</head>
+<body>
+</body>
+</html>
