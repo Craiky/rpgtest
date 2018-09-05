@@ -18,6 +18,7 @@ var west =;
 //////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////
 //case statment
+function doEverything(){
 switch(){
        default:
        message1=;
@@ -28,24 +29,35 @@ switch(){
        case 2:
        message1=;
        message2=;
+       }
 
+       
+       
+       }
+function statRefresh(){
+              document.getElementByID(healthLeft).innerHTML="healthRemaining"
+              document.getElementByID(health).innerHTML="baseHealth"
+              document.getElementByID(attack).innerHTML="baseAttack
+              document.getElementByID(speed).innerHTML="baseSpeed"
+              document.getElementByID(health).innerHTML=""  
+              document.getElementByID(health).innerHTML=""  
 }
 
 </script>
 <style>
 </style>
 <div id="playerStats">
-<p id="health"></p>
+<p id="health"></p><p>/</p><p id=healthLeft></p>
 <p id="attack"></p>
 <p id="speed"></p>
 </div>
 </div id="messages">
 <p id="textMessage"></p>
 <p id="textMessage2"></p>
-<button id="north"></button>
-<button id="east"></button>
-<button id="south"></button>
-<button id="west"></button>
+<button id="north" onclick="doEverything"></button>
+<button id="east" onclick="doEverything"></button>
+<button id="south" onclick="doEverything"></button>
+<button id="west" onclick="doEverything"></button>
 </div>
 </head>
 <body>
